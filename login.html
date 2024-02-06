@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="card mx-auto" style="max-width: 400px;">
+      <div class="card-body">
+        <h2 class="card-title text-center">Login</h2>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="username">User Name</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control mb-3" id="password" placeholder="Enter password" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-4zrFGEon2sNLELMoDhU5V1axEwpn6FLbXeRuFvv1ngYnyF4eMU+dVdA7Oew8L3WH" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyFqO6Zl5BFiBQjRh6c9FOOhO8gW61+1S" crossorigin="anonymous"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginForm = document.getElementById("loginForm");
+
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const username = document.querySelector("#username");
+        const password = document.querySelector("#password");
+
+        if (username.value === "" || password.value === "") {
+          alert("Vui lòng nhập tên người dùng và mật khẩu");
+          return;
+        }
+
+        fetch("http://localhost:3300/users")
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Lỗi khi lấy dữ liệu người dùng");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            if (!data || data.length === 0) {
+              alert("Dữ liệu người dùng trống rỗng hoặc không tồn tại");
+              return;
+            }
+
+            console.log(data, username.value, password.value);
+
+            if (checkLogin(data, username.value, password.value)) {
+              alert("Đăng nhập thành công");
+              window.location.href = "index.html";
+            } else {
+              alert("Đăng nhập thất bại");
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            alert("Đã xảy ra lỗi khi lấy dữ liệu người dùng");
+          });
+      });
+
+      const checkLogin = function (data, user, pass) {
+        return data.some((userData) => {
+          return userData.username == user && userData.password == pass;
+        });
+      };
+    });
+  </script>
+</body>
+</html>
