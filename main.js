@@ -71,7 +71,7 @@ fetch(url)
               <label for="price">Price Product</label>
               <input type="number" class="form-control" id="price" placeholder="Enter product price" value="${data.price}">
             </div>
-            <button type="submit" class="btn btn-primary">Edit Product</button>
+            <button type="submit" class="btn-submit btn-primary">Edit Product</button>
           </form>
 `;
 
@@ -138,7 +138,7 @@ btnAdd.addEventListener("click", () => {
         <label for="price">Price Product</label>
         <input type="number" class="form-control" id="price" placeholder="Enter product price">
     </div>
-    <button type="submit" class="btn btn-primary">Add Product</button>
+    <button type="submit" class="btn-submit btn-primary">Add Product</button>
     </form>
 `;
   const btnSubmit = document.querySelector(".btn-submit");

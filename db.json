@@ -3,7 +3,7 @@
     {
       "id": "2",
       "name": "Sản phẩm 2",
-      "price": "2000"
+      "price": "20000"
     },
     {
       "id": "3",
@@ -11,9 +11,9 @@
       "price": 300
     },
     {
-      "id": "876b",
-      "name": "Product 4",
-      "price": "400"
+      "id": "5124",
+      "name": "Minh Duc",
+      "price": "123"
     }
   ],
   "users": [
